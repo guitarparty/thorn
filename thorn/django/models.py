@@ -54,7 +54,8 @@ class Subscriber(models.Model, SubscriberModelMixin):
 
     url = models.URLField(
         _('URL'),
-        max_length=CHAR_MAX_LENGTH,
+        # # Sævar march 2024 changed from 190 to 1024
+        max_length=1024,
         db_index=True,
         help_text=_('Callback URL'),
     )
