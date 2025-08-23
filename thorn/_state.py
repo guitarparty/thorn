@@ -2,8 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import threading
-
-from vine.five import monotonic
+import time
 
 __all__ = [
     'current_app', 'set_current_app', 'set_default_app',
@@ -76,14 +75,14 @@ class buffer_events(object):
 
     def should_flush(self):
         if self.flush_last is None:
-            self.flush_last = monotonic()
+            self.flush_last = time.monotonic()
         return (
             not self.flush_count % self.flush_freq or
-            monotonic() > (self.flush_last or 0) + self.flush_timeout
+            time.monotonic() > (self.flush_last or 0) + self.flush_timeout
         )
 
     def _flush(self, owner):
-        self.flush_last = monotonic()
+        self.flush_last = time.monotonic()
         self.app.flush_buffer(owner=owner)
 
     def _enable(self):
