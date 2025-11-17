@@ -216,7 +216,7 @@ class Request(ThenableProxy):
                     }),
                     verify=False,
                 )
-            except requests.exceptions.SSLError as e:
+            except (requests.exceptions.SSLError, ConnectionError) as e:
                 addr = socket.gethostbyname(host)
                 url = url.replace(addr, host)
 
